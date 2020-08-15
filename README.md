@@ -3,45 +3,45 @@
 
 - - **-- Switch to Windows Containers from Docker Desktop 
 
-stop all containers:
-docker kill $(docker ps -q)
+* stop all containers:
+* docker kill $(docker ps -q)
 
-remove all containers
-docker rm $(docker ps -a -q)
+* remove all containers
+* docker rm $(docker ps -a -q)
 
-remove all docker images
-docker rmi $(docker images -q)
+* remove all docker images
+* docker rmi $(docker images -q)
 
-docker pull microsoft/mssql-server-windows-developer
+* docker pull microsoft/mssql-server-windows-developer
 
-docker run --name SQLServer -d -p 1433:1433 -e sa_password=Password_01 -e ACCEPT_EULA=Y microsoft/mssql-server-windows-developer
+* docker run --name SQLServer -d -p 1433:1433 -e sa_password=Password_01 -e ACCEPT_EULA=Y microsoft/mssql-server-windows-developer
 
-Stop-Service docker
-Stop-service hns
-Start-service hns
-Start-Service docker
-docker network prune
+* Stop-Service docker
+* Stop-service hns
+* Start-service hns
+* Start-Service docker
+* docker network prune
 
-docker run --name SQLServer -d -p 1433:1433 -e sa_password=Password_01 -e ACCEPT_EULA=Y microsoft/mssql-server-windows-developer
+* docker run --name SQLServer -d -p 1433:1433 -e sa_password=Password_01 -e ACCEPT_EULA=Y microsoft/mssql-server-windows-developer
 
-- - **-- go advanced "options" and put TrustServerCertificate=True to Additional Connection Parameters [login to SSMS]
+- - **-- go advanced "options" and put TrustServerCertificate=True to Additional Connection Parameters [login to SSMS] -- for Authenticaiton Problem---
 
-docker stop SQLServer
- (docker rm SQLServer) + 
- (docker run --name SQLServer -d -p 1433:1433 -e sa_password=Password_01 -e ACCEPT_EULA=Y microsoft/mssql-server-windows-developer)
+* docker stop SQLServer
+*  (docker rm SQLServer) + 
+*  (docker run --name SQLServer -d -p 1433:1433 -e sa_password=Password_01 -e ACCEPT_EULA=Y microsoft/mssql-server-windows-developer)
 
-docker start SQLServer
+* docker start SQLServer
 
-- - **-- [from SSMS]
+- - **-- [from SSMS] ------------Authenticaiton to SSMS------------------------
 Server Name: 127.0.0.1,1443
 Authentication: SQL Server Authentication
 Login: SA
 Password: whatever password you passed in as an Environment flag.
-- - **-- 
+- - **-- ----------------------------------------------------------------------
 
-docker run --name SQLServer -d -p 1433:1433 --volume c:\Docker\Volumes\SQLServer:c:\SQLData -e sa_password=Password_01 -e ACCEPT_EULA=Y microsoft/mssql-server-windows-developer
+* docker run --name SQLServer -d -p 1433:1433 --volume c:\Docker\Volumes\SQLServer:c:\SQLData -e sa_password=Password_01 -e ACCEPT_EULA=Y microsoft/mssql-server-windows-developer
 
-docker exec -it SQLServer sqlcmd -S localhost -U sa -P 'Password_01' 
+* docker exec -it SQLServer sqlcmd -S localhost -U sa -P 'Password_01' 
 1> create database deneme1
 2> go
 1> use deneme1
@@ -75,7 +75,7 @@ id          type                                               mac              
 
 (1 rows affected)
 1>
-------------------------------SSMS CreateDB-----------------------------------------------------------------------
+------------------------------from SSMS CreateDB Script-----------------------------------------------------------------------
 USE [master]
 GO
 
@@ -242,7 +242,10 @@ docker-compose up -d
 
 
 -----------------------------------------------------
-https://dotnetplaybook.com/run-and-connect-to-a-sql-server-docker-container/
-https://octopus.com/blog/running-sql-server-developer-install-with-docker
+-------------Sources --------------------------------------------------------
+
+- https://dotnetplaybook.com/run-and-connect-to-a-sql-server-docker-container/
+
+- https://octopus.com/blog/running-sql-server-developer-install-with-docker
 
 
